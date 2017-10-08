@@ -1,5 +1,5 @@
 import { h, Component } from 'preact';
-import '../../scss/masking-vault-design.scss';
+import '../../scss/masking-with-designs.scss';
 
 class CardNumberMasking extends Component {
 	static maskingOnKeyUp = (e, props) => {
