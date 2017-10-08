@@ -1,0 +1,51 @@
+.vault-input-field {
+  .group {
+
+    .shell {
+      font-size: 20px;
+      font-family: monospace;
+      letter-spacing: 2px;
+      display: none;
+      position: relative;
+      line-height: 1;
+      width: 100%;
+
+      span {
+        position: absolute;
+        left: 5px;
+        top: -32px;
+        color: #e4e2e2;
+        pointer-events: none;
+        z-index: -1;
+        background-color: transparent;
+        text-transform: uppercase;
+
+        i {
+          color: transparent;
+          opacity: 0;
+          visibility: hidden;
+        }
+      }
+    }
+
+    .masked {
+      letter-spacing: 2px;
+      font-size: 20px;
+      font-family: monospace;
+      &:focus + .shell {
+        display: block;
+      }
+    }
+  }
+
+  .btn-group {
+    input[type="button"], input[type="submit"] {
+      cursor: pointer;
+
+      .masked {
+        background-color: transparent;
+        text-transform: uppercase;
+      }
+    }
+  }
+}
