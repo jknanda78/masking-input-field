@@ -1,39 +1,7 @@
 import { h, Component } from 'preact';
 import '../../scss/masking-with-designs.scss';
 
-class CardNumberMasking extends Component {
-	static getCardDetails = cardFirstDigit => {
-		const fistDigit = parseInt(cardFirstDigit, 10);
-
-		switch (fistDigit) {
-			case 3:
-				return {
-					type: 'American Express',
-					mask: 'XXXX XXXXXX XXXXX'
-				};
-			case 4:
-				return {
-					type: 'VISA',
-					mask: 'XXXX XXXX XXXX XXXX'
-				};
-			case 5:
-				return {
-					type: 'MasterCard',
-					mask: 'XXXX XXXX XXXX XXXX'
-				};
-			case 6:
-				return {
-					type: 'Discover',
-					mask: 'XXXX XXXX XXXX XXXX'
-				};
-			default:
-				return {
-					type: '',
-					mask: ''
-				};
-		}
-	}
-
+class CardExpiryMasking extends Component {
 	static setMasking = (e, props) => {
 		let currentValue = e.target.value,
 			newValue = '';
@@ -46,11 +14,11 @@ class CardNumberMasking extends Component {
 		}
 
 		const strippedValue = currentValue.replace(/\D/g, '');
-		const l = props.mask.length;
+		const l = props.placeholder.length;
 
 		for (let i = 0, j = 0; i < l; i++) {
 			let isInt = !isNaN(parseInt(strippedValue[j], 10));
-			let matchesNumber = maskedNumber.indexOf(props.mask[i]) >= 0;
+			let matchesNumber = maskedNumber.indexOf(props.placeholder[i]) >= 0;
 
 			if (matchesNumber && isInt) {
 				newValue += strippedValue[j++];
@@ -61,7 +29,7 @@ class CardNumberMasking extends Component {
 				};
 			}
 			else {
-				newValue += props.mask[i];
+				newValue += props.placeholder[i];
 			}
 
 			if (strippedValue[j] === undefined) {
@@ -69,9 +37,15 @@ class CardNumberMasking extends Component {
 			}
 		}
 
+		if (newValue.length === 1 && props.placeholder.toUpperCase().substr(0,2) === 'MM') {
+			if (newValue > 1 && newValue < 10) {
+				newValue = '0' + newValue;
+			}
+		}
+
 		return {
 			value: newValue,
-			mask: props.mask.substr(newValue.length)
+			mask: props.placeholder.substr(newValue.length)
 		};
 	}
 
@@ -87,7 +61,7 @@ class CardNumberMasking extends Component {
 				return;
 		}
 
-		return CardNumberMasking.setMasking(e, props);
+		return CardExpiryMasking.setMasking(e, props);
 	}
 
 	render(props) {
@@ -102,4 +76,4 @@ class CardNumberMasking extends Component {
 	}
 }
 
-export default CardNumberMasking;
+export default CardExpiryMasking;
