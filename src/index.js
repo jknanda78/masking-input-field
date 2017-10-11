@@ -3,16 +3,17 @@ import { AtomDesignInputField, VaultDesignInputField } from '@jsfoobar/design-pa
 import InputField from '@jsfoobar/input-field';
 import CardNumberMasking from './js/components/card-number-masking';
 import CardExpiryMasking from './js/components/card-expiry-masking';
+import CardCVVMasking from './js/components/card-cvv-masking';
 
 const renderCardNumber1 = (MaskingComponent) => {
 	class CardNumber extends Component {
 		onKeyUpHandler = e => {
 			const inputVal = e.target.value;
 			const card = CardNumber.getCardDetails(inputVal.charAt(0));
-			const { placeholder, value } = this.props;
+			const { placeholder } = this.props;
 			const maxlength = (card.mask.length)? card.mask.length : placeholder.length;
 			const propsForCardNumberMasking = {
-				value,
+				value: inputVal,
 				mask: card.mask
 			};
 			const inputState = CardNumber.maskingOnKeyUp(e, propsForCardNumberMasking);
@@ -117,30 +118,29 @@ const renderCardExpiry1 = (MaskingComponent) => {
 
 const renderCardCVV1 = (MaskingComponent) => {
 	class CardCVV extends Component {
-		onKeyUpHandler = e => {
-			const inputState = CardCVV.maskingOnKeyUp(e, this.props);
+		onFocusHandler = e => {
+			const { cardType, placeholder } = this.props;
+			const card = (cardType) ? CardCVV.getMasking(cardType) : '';
+			const maxlength = (cardType) ? card.mask.length : placeholder.length;
 
-			if (inputState && (inputState.value || inputState.mask)) {
-				this.setState({
-					value: inputState.value,
-					mask: inputState.mask
-				});
-			}
+			this.setState({
+				maxLength: maxlength
+			});
 		}
 
 		onKeyUpHandler = e => {
 			const inputVal = e.target.value;
-			// const card = CardNumber.getCardDetails(inputVal.charAt(0));
-			const { placeholder, value } = this.props;
-			const maxlength = placeholder.length;
+			const { cardType, placeholder } = this.props;
+			const card = (cardType) ? CardCVV.getMasking(cardType) : '';
+			const maxlength = (cardType) ? card.mask.length : placeholder.length;
 			const propsForCardCVVMasking = {
-				value,
-				mask: placeholder
+				value: inputVal,
+				mask: card.mask
 			};
+
 			const inputState = CardCVV.maskingOnKeyUp(e, propsForCardCVVMasking);
 
 			this.setState({
-				maxLength: maxlength,
 				value: inputState && inputState.value || inputVal,
 				mask: inputState && inputState.mask
 			});
@@ -151,16 +151,19 @@ const renderCardCVV1 = (MaskingComponent) => {
 
 			this.state = {
 				value: '',
-				mask: props.placeholder
+				mask: '',
+				placeholder: props.placeholder,
+				maxLength: props.placeholder.length
 			};
 
 			this.onKeyUpHandler = this.onKeyUpHandler.bind(this);
+			this.onFocusHandler = this.onFocusHandler.bind(this);
 		}
 
 		render(props) {
 			const { label, ...propsForInput } = props; // eslint-disable-line no-unused-vars
 
-			propsForInput.maxLength = props.placeholder.length;
+			propsForInput.maxLength = this.state.maxLength;
 
 			const propsForMasking = {};
 
@@ -169,7 +172,7 @@ const renderCardCVV1 = (MaskingComponent) => {
 
 			return (
 				<AtomDesignInputField label={label}>
-					<InputField {...propsForInput} onKeyUp={this.onKeyUpHandler} value={this.state.value} />
+					<InputField {...propsForInput} onKeyUp={this.onKeyUpHandler} onFocus={this.onFocusHandler} value={this.state.value} />
 					<MaskingComponent {...propsForMasking} />
 				</AtomDesignInputField>
 			);
@@ -177,6 +180,7 @@ const renderCardCVV1 = (MaskingComponent) => {
 	}
 
 	CardCVV.maskingOnKeyUp = MaskingComponent.maskingOnKeyUp;
+	CardCVV.getMasking = MaskingComponent.getMasking;
 
 	return CardCVV;
 };
@@ -294,18 +298,29 @@ const renderCardExpiry2 = (MaskingComponent) => {
 
 const renderCardCVV2 = (MaskingComponent) => {
 	class CardCVV extends Component {
+		onFocusHandler = e => {
+			const { cardType, placeholder } = this.props;
+			const card = (cardType) ? CardCVV.getMasking(cardType) : '';
+			const maxlength = (cardType) ? card.mask.length : placeholder.length;
+
+			this.setState({
+				maxLength: maxlength
+			});
+		}
+
 		onKeyUpHandler = e => {
 			const inputVal = e.target.value;
-			const { placeholder, value } = this.props;
-			const maxlength = placeholder.length;
+			const { cardType, placeholder } = this.props;
+			const card = (cardType) ? CardCVV.getMasking(cardType) : '';
+			const maxlength = (cardType) ? card.mask.length : placeholder.length;
 			const propsForCardCVVMasking = {
-				value,
-				mask: placeholder
+				value: inputVal,
+				mask: card.mask
 			};
+
 			const inputState = CardCVV.maskingOnKeyUp(e, propsForCardCVVMasking);
 
 			this.setState({
-				maxLength: maxlength,
 				value: inputState && inputState.value || inputVal,
 				mask: inputState && inputState.mask
 			});
@@ -316,16 +331,19 @@ const renderCardCVV2 = (MaskingComponent) => {
 
 			this.state = {
 				value: '',
-				mask: props.placeholder
+				mask: '',
+				placeholder: props.placeholder,
+				maxLength: props.placeholder.length
 			};
 
 			this.onKeyUpHandler = this.onKeyUpHandler.bind(this);
+			this.onFocusHandler = this.onFocusHandler.bind(this);
 		}
 
 		render(props) {
 			const { label, ...propsForInput } = props; // eslint-disable-line no-unused-vars
 
-			propsForInput.maxLength = props.placeholder.length;
+			propsForInput.maxLength = this.state.maxLength;
 
 			const propsForMasking = {};
 
@@ -334,7 +352,7 @@ const renderCardCVV2 = (MaskingComponent) => {
 
 			return (
 				<VaultDesignInputField label={label}>
-					<InputField {...propsForInput} onKeyUp={this.onKeyUpHandler} value={this.state.value} />
+					<InputField {...propsForInput} onKeyUp={this.onKeyUpHandler} onFocus={this.onFocusHandler} value={this.state.value} />
 					<MaskingComponent {...propsForMasking} />
 				</VaultDesignInputField>
 			);
@@ -342,17 +360,18 @@ const renderCardCVV2 = (MaskingComponent) => {
 	}
 
 	CardCVV.maskingOnKeyUp = MaskingComponent.maskingOnKeyUp;
+	CardCVV.getMasking = MaskingComponent.getMasking;
 
 	return CardCVV;
 };
 
 const CardNumber1 = renderCardNumber1(CardNumberMasking);
 const CardExpiry1 = renderCardExpiry1(CardExpiryMasking);
-const CardCVV1 = renderCardCVV1(CardNumberMasking);
+const CardCVV1 = renderCardCVV1(CardCVVMasking);
 
 const CardNumber2 = renderCardNumber2(CardNumberMasking);
 const CardExpiry2 = renderCardExpiry2(CardExpiryMasking);
-const CardCVV2 = renderCardCVV2(CardNumberMasking);
+const CardCVV2 = renderCardCVV2(CardCVVMasking);
 
 const App = () => (
 	<div>
@@ -380,8 +399,9 @@ const App = () => (
 				class="masked"
 				type="tel"
 				name="cvv"
-				id="cvv"
-				placeholder="XXX"
+				id="cvv1"
+				cardType="VISA"
+				placeholder=""
 				required="required"
 			/>
 		</form>
@@ -410,7 +430,8 @@ const App = () => (
 				type="tel"
 				name="cvv"
 				id="cvv"
-				placeholder="XXX"
+				cardType="American Express"
+				placeholder="3 to 4 digits"
 				required="required"
 			/>
 		</form>
