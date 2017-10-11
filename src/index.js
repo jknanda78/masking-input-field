@@ -130,7 +130,7 @@ const renderCardCVV1 = (MaskingComponent) => {
 
 		onKeyUpHandler = e => {
 			const inputVal = e.target.value;
-			const { cardType, placeholder } = this.props;
+			const { cardType } = this.props;
 			const card = (cardType) ? CardCVV.getMasking(cardType) : '';
 			const propsForCardCVVMasking = {
 				value: inputVal,
@@ -309,7 +309,7 @@ const renderCardCVV2 = (MaskingComponent) => {
 
 		onKeyUpHandler = e => {
 			const inputVal = e.target.value;
-			const { cardType, placeholder } = this.props;
+			const { cardType } = this.props;
 			const card = (cardType) ? CardCVV.getMasking(cardType) : '';
 			const propsForCardCVVMasking = {
 				value: inputVal,
