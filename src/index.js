@@ -132,7 +132,6 @@ const renderCardCVV1 = (MaskingComponent) => {
 			const inputVal = e.target.value;
 			const { cardType, placeholder } = this.props;
 			const card = (cardType) ? CardCVV.getMasking(cardType) : '';
-			const maxlength = (cardType) ? card.mask.length : placeholder.length;
 			const propsForCardCVVMasking = {
 				value: inputVal,
 				mask: card.mask
@@ -312,7 +311,6 @@ const renderCardCVV2 = (MaskingComponent) => {
 			const inputVal = e.target.value;
 			const { cardType, placeholder } = this.props;
 			const card = (cardType) ? CardCVV.getMasking(cardType) : '';
-			const maxlength = (cardType) ? card.mask.length : placeholder.length;
 			const propsForCardCVVMasking = {
 				value: inputVal,
 				mask: card.mask
