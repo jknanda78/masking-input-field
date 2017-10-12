@@ -9,22 +9,26 @@ class CardNumberMasking extends Component {
 			case 3:
 				return {
 					type: 'American Express',
-					mask: 'XXXX XXXXXX XXXXX'
+					mask: 'XXXX XXXXXX XXXXX',
+					length: 15
 				};
 			case 4:
 				return {
 					type: 'VISA',
-					mask: 'XXXX XXXX XXXX XXXX'
+					mask: 'XXXX XXXX XXXX XXXX',
+					length: 16
 				};
 			case 5:
 				return {
 					type: 'MasterCard',
-					mask: 'XXXX XXXX XXXX XXXX'
+					mask: 'XXXX XXXX XXXX XXXX',
+					length: 16
 				};
 			case 6:
 				return {
 					type: 'Discover',
-					mask: 'XXXX XXXX XXXX XXXX'
+					mask: 'XXXX XXXX XXXX XXXX',
+					length: 16
 				};
 			default:
 				return {
