@@ -78,6 +78,14 @@ class CardCVVMasking extends Component {
 		return CardCVVMasking.setMasking(e, props);
 	}
 
+	componentWillMount() {
+		console.log("card-cvv-masking::componentWillMount"); //eslint-disable-line
+	}
+
+	componentDidMount() {
+		console.log("card-cvv-masking::componentDidMount"); //eslint-disable-line
+	}
+
 	render(props) {
 		return (
 			<span class="shell">

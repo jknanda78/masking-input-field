@@ -64,6 +64,14 @@ class CardExpiryMasking extends Component {
 		return CardExpiryMasking.setMasking(e, props);
 	}
 
+	componentWillMount() {
+		console.log("card-expiry-masking::componentWillMount"); //eslint-disable-line
+	}
+
+	componentDidMount() {
+		console.log("card-expiry-masking::componentDidMount"); //eslint-disable-line
+	}
+
 	render(props) {
 		return (
 			<span class="shell">

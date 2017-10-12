@@ -94,6 +94,14 @@ class CardNumberMasking extends Component {
 		return CardNumberMasking.setMasking(e, props);
 	}
 
+	componentWillMount() {
+		console.log("card-number-masking::componentWillMount"); //eslint-disable-line
+	}
+
+	componentDidMount() {
+		console.log("card-number-masking::componentDidMount"); //eslint-disable-line
+	}
+
 	render(props) {
 		return (
 			<span class="shell">

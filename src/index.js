@@ -159,6 +159,10 @@ const renderCardCVV1 = (MaskingComponent) => {
 			this.onFocusHandler = this.onFocusHandler.bind(this);
 		}
 
+		componentDidMount() {
+			console.log("renderCardCVV1::componentDidMount"); //eslint-disable-line
+		}
+
 		render(props) {
 			const { label, ...propsForInput } = props; // eslint-disable-line no-unused-vars
 
