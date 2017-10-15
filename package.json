@@ -1,5 +1,5 @@
 {
-  "version": "0.0.12",
+  "version": "0.0.13",
   "name": "@jsfoobar/masking-input-field",
   "scripts": {
     "build": "preact build",
