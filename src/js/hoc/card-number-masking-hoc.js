@@ -15,7 +15,7 @@ const cardNumberMaskingHOC = WrappedComponent => {
 			const inputState = this.setMasking(e, propsForCardNumberMasking);
 
 			this.setState({
-				type: card.type,
+				cardType: card.type,
 				cardLength: card.length,
 				maxLength: maxlength,
 				value: inputState && inputState.value || inputVal,
