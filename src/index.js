@@ -3,9 +3,6 @@ import InputField from '@jsfoobar/input-field';
 import { AtomDesignInputField, VaultDesignInputField } from '@jsfoobar/design-patterns';
 import { cardNumberMaskingHOC, cardExpiryMaskingHOC, cardCVVMaskingHOC, Masking } from '../';
 
-import './scss/masking-atom-design.scss';
-import './scss/masking-vault-design.scss';
-
 class CardNumberWithAtomDesign extends Component {
 	onKeyUpHandler = e => {
 		const inputVal = e.target.value;
