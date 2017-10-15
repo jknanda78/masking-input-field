@@ -1,5 +1,5 @@
-import CardNumberMasking from './src/js/components/card-number-masking';
-import CardExpiryMasking from './src/js/components/card-expiry-masking';
-import CardCVVMasking from './src/js/components/card-cvv-masking';
+import cardNumberMaskingHOC from './src/js/hoc/card-number-masking-hoc';
+import cardExpiryMaskingHOC from './src/js/hoc/card-expiry-masking-hoc';
+import cardCVVMaskingHOC from './src/js/hoc/card-cvv-masking-hoc';
 
-export { CardNumberMasking, CardExpiryMasking, CardCVVMasking };
+export { cardNumberMaskingHOC, cardExpiryMaskingHOC, cardCVVMaskingHOC };
