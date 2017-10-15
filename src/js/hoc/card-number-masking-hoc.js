@@ -2,7 +2,7 @@ import { h, Component } from 'preact';
 
 const cardNumberMaskingHOC = WrappedComponent => {
 	class HOC extends Component {
-		onKeyUpHandler = e => {
+		maskingOnKeyUp = e => {
 			const props = this.props;
 			const inputVal = e.target.value;
 			const card = this.getMasking(inputVal.charAt(0));
@@ -12,7 +12,7 @@ const cardNumberMaskingHOC = WrappedComponent => {
 				value,
 				mask: card.mask
 			};
-			const inputState = this.maskingOnKeyUp(e, propsForCardNumberMasking);
+			const inputState = this.setMasking(e, propsForCardNumberMasking);
 
 			this.setState({
 				type: card.type,
@@ -60,6 +60,17 @@ const cardNumberMaskingHOC = WrappedComponent => {
 		}
 
 		setMasking = (e, props) => {
+			switch (e.keyCode) { // allows navigating thru input
+				case 20: // caplocks
+				case 17: // control
+				case 18: // option
+				case 16: // shift
+				case 37: // arrow keys
+				case 38:
+				case 40:
+					return;
+			}
+
 			let currentValue = e.target.value,
 				newValue = '';
 
@@ -100,28 +111,12 @@ const cardNumberMaskingHOC = WrappedComponent => {
 			};
 		}
 
-		maskingOnKeyUp = (e, props) => {
-			switch (e.keyCode) { // allows navigating thru input
-				case 20: // caplocks
-				case 17: // control
-				case 18: // option
-				case 16: // shift
-				case 37: // arrow keys
-				case 38:
-				case 40:
-					return;
-			}
-
-			return this.setMasking(e, props);
-		}
-
 		constructor(props) {
 			super(props);
 
 			this.getMasking = this.getMasking.bind(this);
 			this.setMasking = this.setMasking.bind(this);
 			this.maskingOnKeyUp = this.maskingOnKeyUp.bind(this);
-			this.onKeyUpHandler = this.onKeyUpHandler.bind(this);
 		}
 
 		render() {
@@ -132,7 +127,6 @@ const cardNumberMaskingHOC = WrappedComponent => {
 					getMasking={this.getMasking}
 					setMasking={this.setMasking}
 					maskingOnKeyUp={this.maskingOnKeyUp}
-					onKeyUpHandler={this.onKeyUpHandler}
 				/>
 			);
 		}

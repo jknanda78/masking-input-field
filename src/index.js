@@ -5,53 +5,40 @@ import { cardNumberMaskingHOC, cardExpiryMaskingHOC, cardCVVMaskingHOC, Masking 
 
 class CardNumberWithAtomDesign extends Component {
 	onKeyUpHandler = e => {
-		const inputVal = e.target.value;
-		const card = this.props.getMasking(inputVal.charAt(0));
-		const { placeholder } = this.props;
-		const maxlength = (card.mask.length)? card.mask.length : placeholder.length;
-		const propsForCardNumberMasking = {
-			value: inputVal,
-			mask: card.mask
-		};
-		const inputState = this.props.maskingOnKeyUp(e, propsForCardNumberMasking);
+		const props = this.props;
 
-		this.setState({
-			type: card.type,
-			maxLength: maxlength,
-			value: inputState && inputState.value || inputVal,
-			mask: inputState && inputState.mask
-		});
+		if (props.maskingOnKeyUp) {
+			props.maskingOnKeyUp(e);
+		}
+
+		if (props.onKeyUp) {
+			props.onKeyUp(e);
+		}
 	}
 
 	constructor(props) {
 		super(props);
 
-		this.state = {
-			value: '',
-			mask: '',
-			placeholder: props.placeholder,
-			maxLength: props.placeholder.length
-		};
-
 		this.onKeyUpHandler = this.onKeyUpHandler.bind(this);
 	}
 
 	render() {
-		const { label, ...propsForInput } = this.props; // eslint-disable-line no-unused-vars
+		const props = this.props;
+		const { label, ...propsForInput } = props; // eslint-disable-line no-unused-vars
 
-		propsForInput.maxLength = this.state.maxLength;
-		propsForInput.placeholder = this.state.placeholder;
+		propsForInput.maxLength = props.maxLength;
+		propsForInput.placeholder = props.placeholder;
 
 		const propsForMasking = {};
 
-		propsForMasking.mask = this.state.mask;
-		propsForMasking.value = this.state.value;
+		propsForMasking.mask = props.mask;
+		propsForMasking.value = props.value;
 
 		return (
-			<AtomDesignInputField label={label}>
-				<InputField {...propsForInput} onKeyUp={this.onKeyUpHandler} value={this.state.value} />
+			<VaultDesignInputField label={label}>
+				<InputField {...propsForInput} onKeyUp={this.onKeyUpHandler} value={props.value} />
 				<Masking {...propsForMasking} />
-			</AtomDesignInputField>
+			</VaultDesignInputField>
 		);
 	}
 }
@@ -165,51 +152,38 @@ const CardCVV1 = cardCVVMaskingHOC(CardCVVWithAtomDesign);
 
 class CardNumberWithVaultDesign extends Component {
 	onKeyUpHandler = e => {
-		const inputVal = e.target.value;
-		const card = this.props.getMasking(inputVal.charAt(0));
-		const { placeholder, value } = this.props;
-		const maxlength = (card.mask.length)? card.mask.length : placeholder.length;
-		const propsForCardNumberMasking = {
-			value,
-			mask: card.mask
-		};
-		const inputState = this.props.maskingOnKeyUp(e, propsForCardNumberMasking);
+		const props = this.props;
 
-		this.setState({
-			type: card.type,
-			maxLength: maxlength,
-			value: inputState && inputState.value || inputVal,
-			mask: inputState && inputState.mask
-		});
+		if (props.maskingOnKeyUp) {
+			props.maskingOnKeyUp(e);
+		}
+
+		if (props.onKeyUp) {
+			props.onKeyUp(e);
+		}
 	}
 
 	constructor(props) {
 		super(props);
 
-		this.state = {
-			value: '',
-			mask: '',
-			placeholder: props.placeholder,
-			maxLength: props.placeholder.length
-		};
-
 		this.onKeyUpHandler = this.onKeyUpHandler.bind(this);
 	}
 
 	render() {
-		const { label, ...propsForInput } = this.props; // eslint-disable-line no-unused-vars
+		const props = this.props;
+		const { label, ...propsForInput } = props; // eslint-disable-line no-unused-vars
 
-		propsForInput.maxLength = this.state.maxLength;
-		propsForInput.placeholder = this.state.placeholder;
+		propsForInput.maxLength = props.maxLength;
+		propsForInput.placeholder = props.placeholder;
 
 		const propsForMasking = {};
 
-		propsForMasking.mask = this.state.mask;
-		propsForMasking.value = this.state.value;
+		propsForMasking.mask = props.mask;
+		propsForMasking.value = props.value;
 
 		return (
 			<VaultDesignInputField label={label}>
-				<InputField {...propsForInput} onKeyUp={this.onKeyUpHandler} value={this.state.value} />
+				<InputField {...propsForInput} onKeyUp={this.onKeyUpHandler} value={props.value} />
 				<Masking {...propsForMasking} />
 			</VaultDesignInputField>
 		);
