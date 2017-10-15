@@ -1,8 +1,7 @@
 import { h, Component } from 'preact';
 import InputField from '@jsfoobar/input-field';
 import { AtomDesignInputField, VaultDesignInputField } from '@jsfoobar/design-patterns';
-import Masking from './js/components/masking';
-import { cardNumberMaskingHOC, cardExpiryMaskingHOC, cardCVVMaskingHOC } from '../';
+import { cardNumberMaskingHOC, cardExpiryMaskingHOC, cardCVVMaskingHOC, Masking } from '../';
 
 import './scss/masking-atom-design.scss';
 import './scss/masking-vault-design.scss';

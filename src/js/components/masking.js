@@ -1,6 +1,6 @@
 import { h } from 'preact';
 
-const MaskingUI = props => (
+const Masking = props => (
 	<span class="shell">
 		<span>
 			<i arial-hidden="true">{props.value}</i>
@@ -9,6 +9,6 @@ const MaskingUI = props => (
 	</span>
 );
 
-MaskingUI.displayName = 'Masking UI Component';
+Masking.displayName = 'Masking Functional Component';
 
-export default MaskingUI;
+export default Masking;
