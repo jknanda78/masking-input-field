@@ -1,6 +1,6 @@
 import { h, Component } from 'preact';
 
-const CardExpiryMaskingHOC = WrappedComponent => {
+const cardExpiryMaskingHOC = WrappedComponent => {
 	class HOC extends Component {
 		setMasking = (e, props) => {
 			let currentValue = e.target.value,
@@ -82,4 +82,4 @@ const CardExpiryMaskingHOC = WrappedComponent => {
 	return HOC;
 };
 
-export default CardExpiryMaskingHOC;
+export default cardExpiryMaskingHOC;

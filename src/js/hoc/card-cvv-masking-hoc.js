@@ -1,6 +1,6 @@
 import { h, Component } from 'preact';
 
-const CardCVVMaskingHOC = WrappedComponent => {
+const cardCVVMaskingHOC = WrappedComponent => {
 	class HOC extends Component {
 		getMasking = cardType => {
 
@@ -97,4 +97,4 @@ const CardCVVMaskingHOC = WrappedComponent => {
 	return HOC;
 };
 
-export default CardCVVMaskingHOC;
+export default cardCVVMaskingHOC;

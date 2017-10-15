@@ -1,7 +1,28 @@
 import { h, Component } from 'preact';
 
-const CardNumberMaskingHOC = WrappedComponent => {
+const cardNumberMaskingHOC = WrappedComponent => {
 	class HOC extends Component {
+		onKeyUpHandler = e => {
+			const props = this.props;
+			const inputVal = e.target.value;
+			const card = this.getMasking(inputVal.charAt(0));
+			const { placeholder, value } = props;
+			const maxlength = (card.mask.length)? card.mask.length : placeholder.length;
+			const propsForCardNumberMasking = {
+				value,
+				mask: card.mask
+			};
+			const inputState = this.maskingOnKeyUp(e, propsForCardNumberMasking);
+
+			this.setState({
+				type: card.type,
+				cardLength: card.length,
+				maxLength: maxlength,
+				value: inputState && inputState.value || inputVal,
+				mask: inputState && inputState.mask
+			});
+		}
+
 		getMasking = cardFirstDigit => {
 			const fistDigit = parseInt(cardFirstDigit, 10);
 
@@ -100,11 +121,19 @@ const CardNumberMaskingHOC = WrappedComponent => {
 			this.getMasking = this.getMasking.bind(this);
 			this.setMasking = this.setMasking.bind(this);
 			this.maskingOnKeyUp = this.maskingOnKeyUp.bind(this);
+			this.onKeyUpHandler = this.onKeyUpHandler.bind(this);
 		}
 
 		render() {
 			return (
-				<WrappedComponent {...this.props} getMasking={this.getMasking} setMasking={this.setMasking} maskingOnKeyUp={this.maskingOnKeyUp} />
+				<WrappedComponent
+					{...this.props}
+					{...this.state}
+					getMasking={this.getMasking}
+					setMasking={this.setMasking}
+					maskingOnKeyUp={this.maskingOnKeyUp}
+					onKeyUpHandler={this.onKeyUpHandler}
+				/>
 			);
 		}
 	}
@@ -113,4 +142,4 @@ const CardNumberMaskingHOC = WrappedComponent => {
 	return HOC;
 };
 
-export default CardNumberMaskingHOC;
+export default cardNumberMaskingHOC;
