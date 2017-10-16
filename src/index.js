@@ -35,10 +35,10 @@ class CardNumberWithAtomDesign extends Component {
 		propsForMasking.value = props.value;
 
 		return (
-			<VaultDesignInputField label={label}>
+			<AtomDesignInputField label={label}>
 				<InputField {...propsForInput} onKeyUp={this.onKeyUpHandler} value={props.value} />
 				<Masking {...propsForMasking} />
-			</VaultDesignInputField>
+			</AtomDesignInputField>
 		);
 	}
 }
