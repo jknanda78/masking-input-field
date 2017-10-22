@@ -3,7 +3,7 @@ import { h, Component } from 'preact';
 const cardNumberMaskingHOC = WrappedComponent => {
 	class HOC extends Component {
 		onKeyUpHandler = e => {
-			console.log("cardNumberMaskingHOC::onKeyUp");
+			console.log('cardNumberMaskingHOC::onKeyUp'); // eslint-disable-line
 			const props = this.props;
 			const inputVal = e.target.value;
 			const card = this.getMasking(inputVal.charAt(0));
