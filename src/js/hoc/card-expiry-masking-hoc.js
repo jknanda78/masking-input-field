@@ -64,13 +64,6 @@ const cardExpiryMaskingHOC = WrappedComponent => {
 			return this.setMasking(e, props);
 		}
 
-		constructor(props) {
-			super(props);
-
-			this.setMasking = this.setMasking.bind(this);
-			this.maskingOnKeyUp = this.maskingOnKeyUp.bind(this);
-		}
-
 		render() {
 			return (
 				<WrappedComponent {...this.props} setMasking={this.setMasking} maskingOnKeyUp={this.maskingOnKeyUp} />

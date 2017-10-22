@@ -16,12 +16,6 @@ class CardNumberWithAtomDesign extends Component {
 		}
 	}
 
-	constructor(props) {
-		super(props);
-
-		this.onKeyUpHandler = this.onKeyUpHandler.bind(this);
-	}
-
 	render() {
 		const props = this.props;
 		const { label, ...propsForInput } = props; // eslint-disable-line no-unused-vars
@@ -44,6 +38,11 @@ class CardNumberWithAtomDesign extends Component {
 }
 
 class CardExpiryWithAtomDesign extends Component {
+	state = {
+		value: '',
+		mask: this.props.placeholder
+	};
+
 	onKeyUpHandler = e => {
 		const inputState = this.props.maskingOnKeyUp(e, this.props);
 
@@ -53,17 +52,6 @@ class CardExpiryWithAtomDesign extends Component {
 				mask: inputState.mask
 			});
 		}
-	}
-
-	constructor(props) {
-		super(props);
-
-		this.state = {
-			value: '',
-			mask: props.placeholder
-		};
-
-		this.onKeyUpHandler = this.onKeyUpHandler.bind(this);
 	}
 
 	render() {
@@ -86,6 +74,13 @@ class CardExpiryWithAtomDesign extends Component {
 }
 
 class CardCVVWithAtomDesign extends Component {
+	state = {
+		value: '',
+		mask: '',
+		placeholder: this.props.placeholder,
+		maxLength: this.props.placeholder.length
+	};
+
 	onFocusHandler = e => {
 		const { cardType, placeholder } = this.props;
 		const card = (cardType) ? this.props.getMasking(cardType) : '';
@@ -111,20 +106,6 @@ class CardCVVWithAtomDesign extends Component {
 			value: inputState && inputState.value || inputVal,
 			mask: inputState && inputState.mask
 		});
-	}
-
-	constructor(props) {
-		super(props);
-
-		this.state = {
-			value: '',
-			mask: '',
-			placeholder: props.placeholder,
-			maxLength: props.placeholder.length
-		};
-
-		this.onKeyUpHandler = this.onKeyUpHandler.bind(this);
-		this.onFocusHandler = this.onFocusHandler.bind(this);
 	}
 
 	render() {
@@ -163,12 +144,6 @@ class CardNumberWithVaultDesign extends Component {
 		}
 	}
 
-	constructor(props) {
-		super(props);
-
-		this.onKeyUpHandler = this.onKeyUpHandler.bind(this);
-	}
-
 	render() {
 		const props = this.props;
 		const { label, ...propsForInput } = props; // eslint-disable-line no-unused-vars
@@ -191,6 +166,11 @@ class CardNumberWithVaultDesign extends Component {
 }
 
 class CardExpiryWithVaultDesign extends Component {
+	state = {
+		value: '',
+		mask: this.props.placeholder
+	};
+
 	onKeyUpHandler = e => {
 		const inputState = this.props.maskingOnKeyUp(e, this.props);
 
@@ -200,17 +180,6 @@ class CardExpiryWithVaultDesign extends Component {
 				mask: inputState.mask
 			});
 		}
-	}
-
-	constructor(props) {
-		super(props);
-
-		this.state = {
-			value: '',
-			mask: props.placeholder
-		};
-
-		this.onKeyUpHandler = this.onKeyUpHandler.bind(this);
 	}
 
 	render() {
@@ -233,6 +202,13 @@ class CardExpiryWithVaultDesign extends Component {
 }
 
 class CardCVVWithVaultDesign extends Component {
+	state = {
+		value: '',
+		mask: '',
+		placeholder: this.props.placeholder,
+		maxLength: this.props.placeholder.length
+	};
+
 	onFocusHandler = e => {
 		const { cardType, placeholder } = this.props;
 		const card = (cardType) ? this.props.getMasking(cardType) : '';
@@ -258,20 +234,6 @@ class CardCVVWithVaultDesign extends Component {
 			value: inputState && inputState.value || inputVal,
 			mask: inputState && inputState.mask
 		});
-	}
-
-	constructor(props) {
-		super(props);
-
-		this.state = {
-			value: '',
-			mask: '',
-			placeholder: props.placeholder,
-			maxLength: props.placeholder.length
-		};
-
-		this.onKeyUpHandler = this.onKeyUpHandler.bind(this);
-		this.onFocusHandler = this.onFocusHandler.bind(this);
 	}
 
 	render() {

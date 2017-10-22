@@ -2,7 +2,8 @@ import { h, Component } from 'preact';
 
 const cardNumberMaskingHOC = WrappedComponent => {
 	class HOC extends Component {
-		maskingOnKeyUp = e => {
+		onKeyUpHandler = e => {
+			console.log("cardNumberMaskingHOC::onKeyUp");
 			const props = this.props;
 			const inputVal = e.target.value;
 			const card = this.getMasking(inputVal.charAt(0));
@@ -21,6 +22,10 @@ const cardNumberMaskingHOC = WrappedComponent => {
 				value: inputState && inputState.value || inputVal,
 				mask: inputState && inputState.mask
 			});
+
+			if (this.props.onKeyUp) {
+				this.props.onKeyUp(e, this.state.cardType);
+			}
 		}
 
 		getMasking = cardFirstDigit => {
@@ -111,14 +116,6 @@ const cardNumberMaskingHOC = WrappedComponent => {
 			};
 		}
 
-		constructor(props) {
-			super(props);
-
-			this.getMasking = this.getMasking.bind(this);
-			this.setMasking = this.setMasking.bind(this);
-			this.maskingOnKeyUp = this.maskingOnKeyUp.bind(this);
-		}
-
 		render() {
 			return (
 				<WrappedComponent
@@ -126,7 +123,7 @@ const cardNumberMaskingHOC = WrappedComponent => {
 					{...this.state}
 					getMasking={this.getMasking}
 					setMasking={this.setMasking}
-					maskingOnKeyUp={this.maskingOnKeyUp}
+					onKeyUp={this.onKeyUpHandler}
 				/>
 			);
 		}

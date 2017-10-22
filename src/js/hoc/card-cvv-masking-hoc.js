@@ -78,14 +78,6 @@ const cardCVVMaskingHOC = WrappedComponent => {
 			return this.setMasking(e, props);
 		}
 
-		constructor(props) {
-			super(props);
-
-			this.getMasking = this.getMasking.bind(this);
-			this.setMasking = this.setMasking.bind(this);
-			this.maskingOnKeyUp = this.maskingOnKeyUp.bind(this);
-		}
-
 		render() {
 			return (
 				<WrappedComponent {...this.props} getMasking={this.getMasking} setMasking={this.setMasking} maskingOnKeyUp={this.maskingOnKeyUp} />
