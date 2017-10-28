@@ -1,7 +1,7 @@
 import { h, Component } from 'preact';
 import InputField from '@jsfoobar/input-field';
 import { AtomDesignInputField, VaultDesignInputField } from '@jsfoobar/design-patterns';
-import { cardNumberMaskingHOC, cardExpiryMaskingHOC, cardCVVMaskingHOC, Masking } from '../';
+import { cardNumberMaskingHOC, cardExpiryMaskingHOC, cardCVVMaskingHOC } from '../';
 
 class CardNumberWithAtomDesign extends Component {
 	onKeyUpHandler = e => {
@@ -18,7 +18,7 @@ class CardNumberWithAtomDesign extends Component {
 
 	render() {
 		const props = this.props;
-		const { label, ...propsForInput } = props; // eslint-disable-line no-unused-vars
+		const { label, Masking, ...propsForInput } = props; // eslint-disable-line no-unused-vars
 
 		propsForInput.maxLength = props.maxLength;
 		propsForInput.placeholder = props.placeholder;
@@ -55,7 +55,7 @@ class CardExpiryWithAtomDesign extends Component {
 	}
 
 	render() {
-		const { label, ...propsForInput } = this.props; // eslint-disable-line no-unused-vars
+		const { label, Masking, ...propsForInput } = this.props; // eslint-disable-line no-unused-vars
 
 		propsForInput.maxLength = this.props.placeholder.length;
 
@@ -67,7 +67,7 @@ class CardExpiryWithAtomDesign extends Component {
 		return (
 			<AtomDesignInputField label={label}>
 				<InputField {...propsForInput} onKeyUp={this.onKeyUpHandler} value={this.state.value} />
-				<masking {...propsForMasking} />
+				<Masking {...propsForMasking} />
 			</AtomDesignInputField>
 		);
 	}
@@ -109,7 +109,7 @@ class CardCVVWithAtomDesign extends Component {
 	}
 
 	render() {
-		const { label, ...propsForInput } = this.props; // eslint-disable-line no-unused-vars
+		const { label, Masking, ...propsForInput } = this.props; // eslint-disable-line no-unused-vars
 
 		propsForInput.maxLength = this.state.maxLength;
 
@@ -131,7 +131,9 @@ const CardNumber1 = cardNumberMaskingHOC(CardNumberWithAtomDesign);
 const CardExpiry1 = cardExpiryMaskingHOC(CardExpiryWithAtomDesign);
 const CardCVV1 = cardCVVMaskingHOC(CardCVVWithAtomDesign);
 
-class CardNumberWithVaultDesign extends Component {
+//Using @Decorators
+@cardNumberMaskingHOC
+class CardNumber2 extends Component {
 	onKeyUpHandler = e => {
 		const props = this.props;
 
@@ -144,9 +146,21 @@ class CardNumberWithVaultDesign extends Component {
 		}
 	}
 
+	renderMaskingUI = children => {
+		let maskingComponent = null;
+
+		children.forEach((item, index) => {
+			if (item.name === 'Masking') {
+				maskingComponent = item;
+			}
+		});
+
+		return maskingComponent;
+	}
+
 	render() {
 		const props = this.props;
-		const { label, ...propsForInput } = props; // eslint-disable-line no-unused-vars
+		const { label, Masking, ...propsForInput } = props; // eslint-disable-line no-unused-vars
 
 		propsForInput.maxLength = props.maxLength;
 		propsForInput.placeholder = props.placeholder;
@@ -159,13 +173,14 @@ class CardNumberWithVaultDesign extends Component {
 		return (
 			<VaultDesignInputField label={label}>
 				<InputField {...propsForInput} onKeyUp={this.onKeyUpHandler} value={props.value} />
-				<Masking {...propsForMasking} />
+				<Masking {...propsForInput} />
 			</VaultDesignInputField>
 		);
 	}
 }
 
-class CardExpiryWithVaultDesign extends Component {
+@cardExpiryMaskingHOC
+class CardExpiry2 extends Component {
 	state = {
 		value: '',
 		mask: this.props.placeholder
@@ -183,7 +198,7 @@ class CardExpiryWithVaultDesign extends Component {
 	}
 
 	render() {
-		const { label, ...propsForInput } = this.props; // eslint-disable-line no-unused-vars
+		const { label, Masking, ...propsForInput } = this.props; // eslint-disable-line no-unused-vars
 
 		propsForInput.maxLength = this.props.placeholder.length;
 
@@ -201,7 +216,8 @@ class CardExpiryWithVaultDesign extends Component {
 	}
 }
 
-class CardCVVWithVaultDesign extends Component {
+@cardCVVMaskingHOC
+class CardCVV2 extends Component {
 	state = {
 		value: '',
 		mask: '',
@@ -237,7 +253,7 @@ class CardCVVWithVaultDesign extends Component {
 	}
 
 	render() {
-		const { label, ...propsForInput } = this.props; // eslint-disable-line no-unused-vars
+		const { label, Masking, ...propsForInput } = this.props; // eslint-disable-line no-unused-vars
 
 		propsForInput.maxLength = this.state.maxLength;
 
@@ -254,10 +270,6 @@ class CardCVVWithVaultDesign extends Component {
 		);
 	}
 }
-
-const CardNumber2 = cardNumberMaskingHOC(CardNumberWithVaultDesign);
-const CardExpiry2 = cardExpiryMaskingHOC(CardExpiryWithVaultDesign);
-const CardCVV2 = cardCVVMaskingHOC(CardCVVWithVaultDesign);
 
 const App = () => (
 	<div>

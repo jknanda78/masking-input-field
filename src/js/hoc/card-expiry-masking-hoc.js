@@ -1,4 +1,5 @@
 import { h, Component } from 'preact';
+import Masking from '../components/masking';
 
 const cardExpiryMaskingHOC = WrappedComponent => {
 	class HOC extends Component {
@@ -66,7 +67,12 @@ const cardExpiryMaskingHOC = WrappedComponent => {
 
 		render() {
 			return (
-				<WrappedComponent {...this.props} setMasking={this.setMasking} maskingOnKeyUp={this.maskingOnKeyUp} />
+				<WrappedComponent
+					{...this.props}
+					Masking={Masking}
+					setMasking={this.setMasking}
+					maskingOnKeyUp={this.maskingOnKeyUp}
+				/>
 			);
 		}
 	}
