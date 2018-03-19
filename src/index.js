@@ -1,9 +1,9 @@
 import { h, Component } from 'preact';
 import InputField from '@jsfoobar/input-field';
-import { AtomDesignInputField, VaultDesignInputField } from '@jsfoobar/design-patterns';
+import { Pattern1, Pattern2 } from '@jsfoobar/design-patterns';
 import { cardNumberMaskingHOC, cardExpiryMaskingHOC, cardCVVMaskingHOC } from '../';
 
-class CardNumberWithAtomDesign extends Component {
+class CardNumberWithPattern1Design extends Component {
 	onKeyUpHandler = e => {
 		const props = this.props;
 
@@ -29,15 +29,15 @@ class CardNumberWithAtomDesign extends Component {
 		propsForMasking.value = props.value;
 
 		return (
-			<AtomDesignInputField label={label}>
+			<Pattern1 label={label}>
 				<InputField {...propsForInput} onKeyUp={this.onKeyUpHandler} value={props.value} />
 				<Masking {...propsForMasking} />
-			</AtomDesignInputField>
+			</Pattern1>
 		);
 	}
 }
 
-class CardExpiryWithAtomDesign extends Component {
+class CardExpiryWithPattern1Design extends Component {
 	state = {
 		value: '',
 		mask: this.props.placeholder
@@ -65,15 +65,15 @@ class CardExpiryWithAtomDesign extends Component {
 		propsForMasking.value = this.state.value;
 
 		return (
-			<AtomDesignInputField label={label}>
+			<Pattern1 label={label}>
 				<InputField {...propsForInput} onKeyUp={this.onKeyUpHandler} value={this.state.value} />
 				<Masking {...propsForMasking} />
-			</AtomDesignInputField>
+			</Pattern1>
 		);
 	}
 }
 
-class CardCVVWithAtomDesign extends Component {
+class CardCVVWithPattern1Design extends Component {
 	state = {
 		value: '',
 		mask: '',
@@ -119,17 +119,17 @@ class CardCVVWithAtomDesign extends Component {
 		propsForMasking.value = this.state.value;
 
 		return (
-			<AtomDesignInputField label={label}>
+			<Pattern1 label={label}>
 				<InputField {...propsForInput} onKeyUp={this.onKeyUpHandler} onFocus={this.onFocusHandler} value={this.state.value} />
 				<Masking {...propsForMasking} />
-			</AtomDesignInputField>
+			</Pattern1>
 		);
 	}
 }
 
-const CardNumber1 = cardNumberMaskingHOC(CardNumberWithAtomDesign);
-const CardExpiry1 = cardExpiryMaskingHOC(CardExpiryWithAtomDesign);
-const CardCVV1 = cardCVVMaskingHOC(CardCVVWithAtomDesign);
+const CardNumber1 = cardNumberMaskingHOC(CardNumberWithPattern1Design);
+const CardExpiry1 = cardExpiryMaskingHOC(CardExpiryWithPattern1Design);
+const CardCVV1 = cardCVVMaskingHOC(CardCVVWithPattern1Design);
 
 //Using @Decorators
 @cardNumberMaskingHOC
@@ -171,10 +171,10 @@ class CardNumber2 extends Component {
 		propsForMasking.value = props.value;
 
 		return (
-			<VaultDesignInputField label={label}>
+			<Pattern2 label={label}>
 				<InputField {...propsForInput} onKeyUp={this.onKeyUpHandler} value={props.value} />
 				<Masking {...propsForInput} />
-			</VaultDesignInputField>
+			</Pattern2>
 		);
 	}
 }
@@ -208,10 +208,10 @@ class CardExpiry2 extends Component {
 		propsForMasking.value = this.state.value;
 
 		return (
-			<VaultDesignInputField label={label}>
+			<Pattern2 label={label}>
 				<InputField {...propsForInput} onKeyUp={this.onKeyUpHandler} value={this.state.value} />
 				<Masking {...propsForMasking} />
-			</VaultDesignInputField>
+			</Pattern2>
 		);
 	}
 }
@@ -263,17 +263,17 @@ class CardCVV2 extends Component {
 		propsForMasking.value = this.state.value;
 
 		return (
-			<VaultDesignInputField label={label}>
+			<Pattern2 label={label}>
 				<InputField {...propsForInput} onKeyUp={this.onKeyUpHandler} onFocus={this.onFocusHandler} value={this.state.value} />
 				<Masking {...propsForMasking} />
-			</VaultDesignInputField>
+			</Pattern2>
 		);
 	}
 }
 
 const App = () => (
 	<div>
-		<h2>Masking with Atom design</h2>
+		<h2>Masking with Pattern1 design</h2>
 		<form>
 			<CardNumber1
 				label="Card Number"
@@ -304,7 +304,7 @@ const App = () => (
 				required="required"
 			/>
 		</form>
-		<h2>Masking with Vault design</h2>
+		<h2>Masking with Pattern2 design</h2>
 		<form>
 			<CardNumber2
 				label="Card Number"

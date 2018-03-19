@@ -1,6 +1,6 @@
 import { h } from 'preact';
-import '../../scss/masking-vault-design.scss';
-import '../../scss/masking-atom-design.scss';
+import '../../scss/masking-kitkat-design.scss';
+import '../../scss/masking-donut-design.scss';
 
 const Masking = props => (
 	<span class="shell">
